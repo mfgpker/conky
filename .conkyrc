@@ -1,0 +1,152 @@
+# Use Xft?
+use_xft yes
+xftfont Ubuntu Beta:size=8
+xftalpha 0.8
+text_buffer_size 2048
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_transparent yes
+own_window_type override
+own_window_class conky
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+background no
+
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 500 635
+#maximum_width 200
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_inner_margin 2
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+default_color grey
+default_shade_color white
+default_outline_color white
+own_window_colour black
+color1 fff
+
+own_window_title Conky-stats
+#WINDOW_NAME=Conky-stats
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+#gap_x -98
+gap_x -180
+gap_y 90
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+ 
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+draw_graph_borders yes
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+ 
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+ 
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer none
+
+
+TEXT
+${image ./.conky/popup3.png  -s 155x197 -p 0,0}
+${goto 25}${voffset 0}${font :style=Bold}SYSTEM${font}
+${goto 25}${voffset 12}${font StyleBats:size=13}A${font}   CPU1: ${cpu cpu1}% ${alignr}
+${goto 25}${voffset 5}${font StyleBats:size=13}A${font}   CPU2: ${cpu cpu2}% ${alignr}
+${goto 25}${voffset 5}${font StyleBats:size=13}A${font}   CPU temp: ${acpitemp}C
+${goto 25}${voffset 5}${font StyleBats:size=13}g${font}   RAM: $memperc% ${alignr}
+${goto 25}${voffset 5}${font StyleBats:size=13}j${font}   SWAP: $swapperc% ${alignr}
+${goto 25}${voffset 5}${font Webdings:size=13}~${font} Battery: ${battery_percent BAT0}% ${alignr}
+${goto 25}${voffset 5}${font StyleBats:size=13}Q${font} Up:$uptime
+
+${image ./.conky/popup3.png  -s 155x197 -p 0,220}
+${goto 25}${voffset -15}${voffset 30}${font :style=Bold}HD${font}
+${goto 25}${voffset 12}${font Pie charts for maps:size=12}7${font}   ${voffset -5}Root:
+${goto 25}${voffset 4}${fs_used /}/${fs_size /} ${alignr}${fs_bar 8,60 /}
+${goto 25}${voffset 12}${font Pie charts for maps:size=12}7${font}   ${voffset -5}Home:
+${goto 25}${voffset 4}${fs_used /home}/${fs_size /home} ${alignr}${fs_bar 8,60 /home}
+${goto 25}${voffset 12}
+ 
+
+
+${image ./.conky/popup3.png  -s 155x197 -p 0,440}
+${goto 25}${voffset 35}${font :style=Bold}SERVER${font}
+${goto 20}${voffset 12}${font PizzaDude Bullets:size=12}O${font} Name: ${texeci 1800 python ~/scripts/LeonServer.py -s}
+${goto 20}${voffset 4}${font PizzaDude Bullets:size=12}U${font}  Players: ${texeci 1800 python ~/scripts/LeonServer.py -p} / ${texeci 30 python ~/scripts/LeonServer.py -a}
+${goto 20}${voffset 4}${font PizzaDude Bullets:size=12}N${font}  Map: ${texeci 1800 python ~/scripts/LeonServer.py -l}
+${goto 20}${voffset 4}${font PizzaDude Bullets:size=12}T${font}  Ver: ${texeci 1800 python ~/scripts/LeonServer.py -v}
+${goto 20}${voffset 4}${font PizzaDude Bullets:size=12}Z${font}  port: ${texeci 1800 python ~/scripts/LeonServer.py -t}
+${goto 20}${voffset 4}${font PizzaDude Bullets:size=12}a${font}  desc: ${texeci 1800 python ~/scripts/LeonServer.py -e gamedesc}
+
+
+${image ./.conky/popup.png  -s 155x197 -p 160,0}
+${goto 180}${voffset -625}${font :style=Bold}WIRELESS${font}
+${goto 180}${voffset 12}${font PizzaDude Bullets:size=12}O${font}   Up: ${upspeed wlan0} ${goto 25}${alignr}${upspeedgraph wlan0 8,60 000000 000000}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}U${font}   Down: ${downspeed wlan0} ${alignr}${downspeedgraph wlan0 8,60 000000 000000}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}N${font}   Upload: ${font :size=6}${totalup wlan0}${font}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}T${font}   Dwnload: ${font :size=6}${totaldown wlan0}${font}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}Z${font}   Signal: ${wireless_link_qual wlan0}% 
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}a${font}   IPv4: ${font :size=6}${addr wlan0}${font} 
+	
+ 
+${image ./.conky/popup.png  -s 155x197 -p 160,220}
+${goto 180}${voffset 45}${font :style=Bold}KU TING${font}
+${goto 180}${voffset 12}${font PizzaDude Bullets:size=12}O${font}   Up: ${upspeed wlan0} ${goto 25}${alignr}${upspeedgraph wlan0 8,60 000000 000000}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}U${font}   Down: ${downspeed wlan0} ${alignr}${downspeedgraph wlan0 8,60 000000 000000}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}N${font}   Upload: ${font :size=6}${totalup wlan0}${font}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}T${font}   Dwnload: ${font :size=6}${totaldown wlan0}${font}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}Z${font}   Signal: ${wireless_link_qual wlan0}% 
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}a${font}   IPv4: ${font :size=6}${addr wlan0}${font} 
+ 
+${image ./.conky/popup.png  -s 155x197 -p 160,440} 
+ ${goto 180}${voffset 45}${font :style=Bold}WIRELESS${font}
+${goto 180}${voffset 12}${font PizzaDude Bullets:size=12}O${font}   Up: ${upspeed wlan0} ${goto 25}${alignr}${upspeedgraph wlan0 8,60 000000 000000}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}U${font}   Down: ${downspeed wlan0} ${alignr}${downspeedgraph wlan0 8,60 000000 000000}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}N${font}   Upload: ${font :size=6}${totalup wlan0}${font}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}T${font}   Dwnload: ${font :size=6}${totaldown wlan0}${font}
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}Z${font}   Signal: ${wireless_link_qual wlan0}% 
+${goto 180}${voffset 4}${font PizzaDude Bullets:size=12}a${font}   IPv4: ${font :size=6}${addr wlan0}${font} 
+ 
+#${texeci 3600 python ~/scripts/rs.py -D}
+${texeci 600 python ~/scripts/LeonServer.py -d}
+
